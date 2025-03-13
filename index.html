@@ -3,16 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Formatter</title>
+    <title>Log Summarizer</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Text Formatter</h1>
-        <textarea id="inputText" placeholder="Copy Paste the logs here"></textarea>
-        <button onclick="formatText()">Enter</button>
-        <textarea id="outputText" placeholder="Formatted Output" readonly></textarea>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <button class="close-btn" onclick="toggleSidebar()">✖</button>
+        <ul>
+            <li onclick="showMain()">Main</li>
+            <li onclick="showHistory()">History</li>
+        </ul>
     </div>
+
+    <!-- Hamburger Button -->
+    <button class="hamburger-btn" onclick="toggleSidebar()">☰</button>
+
+    <!-- Main Section (Default View) -->
+    <div class="container show-container" id="mainSection">
+        <h1>Log Transcriber for tickets </h1>
+        <div class="textarea-container">
+            <textarea id="inputText" placeholder="Copy & Paste the logs here..."></textarea>
+            <button onclick="formatText()">Summarize</button>
+            <textarea id="outputText" placeholder="Formatted Output" readonly></textarea>
+            <button id="copyButton" onclick="copyToClipboard()">Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <!-- History Section (Hidden Initially) -->
+    <div class="container hidden" id="historySection">
+        <h1>History</h1>
+        <div id="historyOutput" class="history-box"></div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
