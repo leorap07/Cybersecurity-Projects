@@ -20,18 +20,28 @@ function formatText() {
 
 function cleanAndFormatMTD() {
     const inputText = document.getElementById('mtdInputText').value;
-    let cleanedText = inputText.replace(/[{}\"|]/g, '').replace(/\|/g, '\n').trim();
 
-    let lines = cleanedText.split('\n').map(line => line.trim()).filter(line => line !== '');
+    // Clean the input text by replacing unwanted characters
+    let cleanedText = inputText
+        .replace(/[{}]/g, '')  // Remove curly braces
+        .trim();
+
+    // Split the cleaned text by pipes
+    let lines = cleanedText.split('|').map(line => line.trim()).filter(line => line !== '');
+    
     let result = lines.map(line => {
-        let [key, value] = line.split('=');
-        if (value === undefined) value = "null";
-        return `${key.trim()}: ${value.trim()}`;
+        if (line.includes('=')) {
+            let [key, value] = line.split('=');
+            if (!value) value = "null";  // Handle empty values
+            return `${key.trim()}: ${value.trim()}`;
+        }
+        return `${line.trim()}: null`;  // If there's no '=' treat it as a null value
     });
 
     let formattedOutput = result.join('\n');
     document.getElementById('mtdOutputText').value = formattedOutput;
 }
+
 
 function clearFields() {
     document.getElementById('inputText').value = '';
