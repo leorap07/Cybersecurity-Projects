@@ -14,6 +14,8 @@
         <ul>
             <li onclick="showMain()">Main</li>
             <li onclick="showHistory()">History</li>
+            <li onclick="showMTD()">MTD</li>
+            <li onclick="showSplunk()">Splunk</li>
         </ul>
     </div>
 
@@ -27,7 +29,7 @@
             <textarea id="inputText" placeholder="Copy & Paste the logs here..."></textarea>
             <button onclick="formatText()">Summarize</button>
             <textarea id="outputText" placeholder="Formatted Output" readonly></textarea>
-            <button id="copyButton" onclick="copyToClipboard()">Copy to Clipboard</button>
+            <button id="clearButton" onclick="clearFields()">Clear</button>
         </div>
     </div>
 
@@ -35,6 +37,28 @@
     <div class="container hidden" id="historySection">
         <h1>History</h1>
         <div id="historyOutput" class="history-box"></div>
+    </div>
+
+    <!-- MTD Section (Hidden Initially) -->
+    <div class="container hidden" id="mtdSection">
+        <h1>MTD Parser</h1>
+        <div class="textarea-container">
+            <textarea id="mtdInputText" placeholder="Paste MTD logs here..."></textarea>
+            <button onclick="cleanAndFormatMTD()">Process MTD</button>
+            <textarea id="mtdOutputText" placeholder="MTD Formatted Output" readonly></textarea>
+            <button id="clearMTDButton" onclick="clearMTDFields()">Clear</button>
+        </div>
+    </div>
+
+    <!-- Splunk Section (Hidden Initially) -->
+    <div class="container hidden" id="splunkSection">
+        <h1>Splunk Parser</h1>
+        <div class="textarea-container">
+            <textarea id="splunkInputText" placeholder="Paste Splunk logs here..."></textarea>
+            <button onclick="processSplunkLogs()">Process Splunk</button>
+            <textarea id="splunkOutputText" placeholder="Splunk Formatted Output" readonly></textarea>
+            <button id="clearSplunkButton" onclick="clearSplunkFields()">Clear</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
