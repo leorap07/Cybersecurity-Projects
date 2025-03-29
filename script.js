@@ -1,5 +1,3 @@
-let history = [];
-
 function formatText() {
     const inputText = document.getElementById('inputText').value;
     let lines = inputText.split('\n').map(line => line.trim()).filter(line => line !== '');
@@ -18,68 +16,58 @@ function formatText() {
 
     let formattedOutput = result.join('\n');
     document.getElementById('outputText').value = formattedOutput;
-
-    // Save to history
-    saveToHistory(formattedOutput);
 }
 
-// Sidebar Toggle
+function cleanAndFormatMTD() {
+    const inputText = document.getElementById('mtdInputText').value;
+    let cleanedText = inputText.replace(/[{}\"|]/g, '').replace(/\|/g, '\n').trim();
+
+    let lines = cleanedText.split('\n').map(line => line.trim()).filter(line => line !== '');
+    let result = lines.map(line => {
+        let [key, value] = line.split('=');
+        if (value === undefined) value = "null";
+        return `${key.trim()}: ${value.trim()}`;
+    });
+
+    let formattedOutput = result.join('\n');
+    document.getElementById('mtdOutputText').value = formattedOutput;
+}
+
+function clearFields() {
+    document.getElementById('inputText').value = '';
+    document.getElementById('outputText').value = '';
+}
+
+function clearMTDFields() {
+    document.getElementById('mtdInputText').value = '';
+    document.getElementById('mtdOutputText').value = '';
+}
+
+function clearSplunkFields() {
+    document.getElementById('splunkInputText').value = '';
+    document.getElementById('splunkOutputText').value = '';
+}
+
 function toggleSidebar() {
     document.getElementById('sidebar').classList.toggle('show');
 }
 
-// Show Main Section
 function showMain() {
-    toggleSidebar();
+    document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
     document.getElementById('mainSection').classList.remove('hidden');
-    document.getElementById('historySection').classList.add('hidden');
 }
 
-// Show History Section
 function showHistory() {
-    toggleSidebar();
-    document.getElementById('mainSection').classList.add('hidden');
+    document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
     document.getElementById('historySection').classList.remove('hidden');
-    updateHistoryDisplay();
 }
 
-// Save History (Max 10 Entries, Separated by 3 New Lines and a Separator)
-function saveToHistory(output) {
-    history.push(output);
-    if (history.length > 10) {
-        history.shift(); // Keep only the last 10 entries
-    }
+function showMTD() {
+    document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
+    document.getElementById('mtdSection').classList.remove('hidden');
 }
 
-// Display History with Proper Formatting
-function updateHistoryDisplay() {
-    let historyDisplay = document.getElementById('historyOutput');
-
-    if (history.length > 0) {
-        historyDisplay.innerText = history
-            .map(entry => entry + "\n\n------------------------------------\n\n")
-            .join('');
-    } else {
-        historyDisplay.innerText = "No history available.";
-    }
+function showSplunk() {
+    document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
+    document.getElementById('splunkSection').classList.remove('hidden');
 }
-
-function copyToClipboard() {
-    const outputText = document.getElementById('outputText');
-
-    if (!outputText.value) {
-        alert("No text to copy!");
-        return;
-    }
-
-    outputText.select();
-    navigator.clipboard.writeText(outputText.value)
-        .then(() => {
-            alert("Formatted output copied to clipboard!");
-        })
-        .catch(err => {
-            alert("Failed to copy text!");
-            console.error("Copy error:", err);
-        });
-}
-
