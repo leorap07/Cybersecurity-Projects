@@ -124,8 +124,8 @@ button {
     padding: 14px 28px;
     border: none;
     border-radius: 30px;
-    background: linear-gradient(to right, #72A0FF, #CCCCFF);
-    color: white;
+    background: linear-gradient(135deg, #B8B8B8, #E0E0E0);
+    color: black;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
@@ -135,7 +135,7 @@ button {
 }
 
 button:hover {
-    background: linear-gradient(to right, #5F8FFF, #B3B3FF);
+    background: linear-gradient(135deg, #A0A0A0, #C8C8C8);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     transform: translateY(-3px);
 }
@@ -143,6 +143,7 @@ button:hover {
 button:active {
     transform: scale(0.95);
 }
+
 
 /* History Box */
 .history-box {
