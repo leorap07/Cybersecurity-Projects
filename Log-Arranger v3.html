@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Log-Arranger</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <!-- Top Bar -->
+  <header class="top-header">
+    <!-- Centered brand -->
+    <div class="brand brand-centered">
+      <span class="la-badge" aria-hidden="true"><span class="la-l">L</span><span class="la-a">A</span></span>
+      <h1>Log-Arranger</h1>
+    </div>
+
+    <!-- Right controls: font slider + History button -->
+    <div class="top-controls">
+      <div class="font-slider" title="Adjust font size">
+        <span class="font-label">font</span>
+        <div class="triangle-slider">
+          <div class="triangle-track"></div>
+          <label for="fontSlider" class="visually-hidden"></label>
+          <input id="fontSlider" type="range" min="12" max="28" value="14" step="1" title="Font size slider" />
+          <div id="sliderThumb" class="slider-thumb-ghost">14</div>
+        </div>
+      </div>
+      <button id="historyToggle" class="glass pill">History</button>
+    </div>
+  </header>
+
+  <!-- Main two-column area -->
+  <div class="main-wrapper" id="mainWrapper">
+    <!-- LEFT -->
+    <section class="container show-container" id="mainSection">
+      <h2>Sentinel and Cortex Logs</h2>
+
+      <div class="textarea-container">
+        <textarea id="inputText" class="logbox" placeholder="Copy &amp; Paste the alert / event logs here..."></textarea>
+
+        <button class="primary glass pill" onclick="formatText()">Arrange</button>
+
+        <textarea id="outputText" class="logbox" placeholder="Formatted Output" readonly></textarea>
+
+        <div class="button-row">
+          <button class="glass pill" onclick="clearFields()">Clear</button>
+          <button class="glass pill" onclick="addToCollection()">Add</button>
+          <button class="glass pill copy" onclick="copyOutput('outputText', 'outputText')">Copy</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT -->
+    <section class="container" id="mergeSection">
+      <h2>Collected Logs (Add &amp; Merge)</h2>
+
+      <div class="textarea-container">
+        <textarea id="collectorText" class="logbox" placeholder="Added logs will appear here..."></textarea>
+
+        <div class="merge-toolbar">
+          <button class="glass pill" onclick="undoLastAddition()">Undo</button>
+          <button class="primary glass pill" onclick="mergeCollected()">Merge</button>
+          <button class="glass pill copy" onclick="copyOutput('collectorText', 'collectorText')">Copy</button>
+        </div>
+
+        <textarea id="mergeOutput" class="logbox" placeholder="Merged output will appear here..." readonly></textarea>
+
+        <div class="button-row">
+          <button class="glass pill" onclick="clearBottom()">Clear</button>
+          <button class="glass pill copy" onclick="copyOutput('mergeOutput', 'mergeOutput')">Copy</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Slide-in History Panel (hidden by default) -->
+  <aside id="historyPanel" class="history-panel" aria-hidden="true">
+    <button class="close-history" title="Close" id="closeHistoryBtn"></button>
+    <h2>History</h2>
+    <div id="historyOutput" class="history-box"></div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>
